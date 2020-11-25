@@ -1,3 +1,4 @@
+const [{ Server: h1 }, x] = [require('http'), require('express')];
 
 const { log } = console;
 
@@ -10,7 +11,7 @@ const hhtml = { 'Content-Type': 'text/html; charset=utf-8' };
 const htxt = { 'Content-Type': 'text/plain; charset=utf-8' };
 
 let port = 80;
-const app = express();
+const app = x();
 
 app
   .get('/', (req, res) => {
