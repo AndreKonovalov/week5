@@ -28,7 +28,7 @@ app
         .set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
         .send('<h1><i>Yes</i></h1>\n'); 
   })
-  .listen(process.env.PORT || port, () => log('process.pid ' + process.pid + 'port=' + process.env.PORT));
+  .listen(process.env.PORT || port, () => log('process.pid ' + process.pid + ' port=' + process.env.PORT));
 //	process.env.PORT || port, () => {  console.log(`Example app listening at http://:${port}`)})
 
 /*app
