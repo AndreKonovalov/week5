@@ -14,20 +14,21 @@ const app = express();
 
 app
   .get('/', (req, res) => {
+	log('get/');
         res
         .status(200)
         .set({ hhtml, ...CORS })
 		.send('Hello World!');
 	})
   .all('/ru', (req, res) => {
+	log('all/ru');
         res
         .status(200)
         .set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
         .send('<h1><i>Yes</i></h1>\n'); 
   })
-  .listen(process.env.PORT || port, () => {
-  console.log(`Example app listening at http://:${port}`)
-})
+  .listen(process.env.PORT || PORT, () => log(process.pid));
+//	process.env.PORT || port, () => {  console.log(`Example app listening at http://:${port}`)})
 
 /*app
   .all('/doc/new/vasya-new.htm', (req, res) => {
