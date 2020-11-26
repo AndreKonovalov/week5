@@ -1,5 +1,6 @@
 const { log } = console;
 
+const myID = 'id319887435';
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,OPTIONS,DELETE'
