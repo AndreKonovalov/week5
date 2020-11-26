@@ -1,5 +1,5 @@
 import x from 'express';
-import * from 'crypto';
+import crypto from 'crypto';
 const { log } = console;
 
 const hashes = crypto.getHashes();
