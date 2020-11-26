@@ -1,12 +1,16 @@
 import x from 'express';
+import * from 'crypto';
 const { log } = console;
 
-let crypto
+const hashes = crypto.getHashes();
+console.log(hashes); // ['DSA', 'DSA-SHA', 'DSA-SHA1', ...]
+
+/*let crypto
 try {
   crypto = require('crypto')
 } catch (err) {
   console.log('Crypto module is unavailable')
-}
+}*/
 const port = 80;
 
 import initApp from './app.js';
