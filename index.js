@@ -1,4 +1,4 @@
-const x = require('express');
+import x from 'express';
 const { log } = console;
 const CORS = {
   'Access-Control-Allow-Origin': '*',
