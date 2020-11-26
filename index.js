@@ -1,33 +1,14 @@
 import x from 'express';
 const { log } = console;
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,OPTIONS,DELETE'
-//  'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers'
-};
-const hhtml = { 'Content-Type': 'text/html; charset=utf-8' };
-const htxt = { 'Content-Type': 'text/plain; charset=utf-8' };
 
-let port = 80;
+const port = 80;
 
-function initApp(ex) {
-	const app = ex();
-	app
-		.get('/', (req, res) => {
-			log('get/');
-			res.status(200)
-				.set({ hhtml, ...CORS })
-				.send('Hello World!');
-		})
-		.all('/ru', (req, res) => {
-			log('all/ru');
-				res.status(200)
-				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
-				.send('<h1><i>Yes</i></h1>\n'); 
-		})
-	return app;
-}
-
+import initApp from './app.js';
+//const app = initApp(express, bodyParser, createReadStream, crypto, http);
 const app = initApp(x);
-app.listen(process.env.PORT || port, () => log('process.pid ' + process.pid + ' port=' + process.env.PORT));
+
+app.listen(process.env.PORT || port, () => {
+  console.log(process.env.PORT || port, () => log('process.pid ' + process.pid + ' port=' + process.env.PORT));
+})
+
 
