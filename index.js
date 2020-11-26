@@ -8,7 +8,7 @@ import initApp from './app.js';
 const app = initApp(x);
 
 app.listen(process.env.PORT || port, () => {
-  console.log(process.env.PORT || port, () => log('process.pid ' + process.pid + ' port=' + process.env.PORT));
+  log('process.pid ' + process.pid + ' port=' + process.env.PORT);
 })
 
 
