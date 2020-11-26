@@ -11,24 +11,36 @@ const htxt = { 'Content-Type': 'text/plain; charset=utf-8' };
 export default function initApp(ex) {
 	const app = ex();
 	app
-		.get('/', (req, res) => {
-			log('get/');
+		.all('/login', (req, res) => {
+			log('/login ' + req.method);
 			res.status(200)
 				.set({ hhtml, ...CORS })
-				.send('Hello World!');
+				.send(myID);
 		})
-		.all('/ru', (req, res) => {
-			log('all/ru');
+		.all('/code', (req, res) => {
+			log('/code ' + req.method);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
-				.send('<h1><i>Yes</i></h1>\n'); 
+				.send(); 
+		})
+		.all('/sha1', (req, res) => {
+			log('/sha1 ' + req.method);
+				res.status(200)
+				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
+				.send(); 
+		})
+		.all('/req', (req, res) => {
+			log('/req ' + req.method);
+				res.status(200)
+				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
+				.send(); 
 		})
 		.all('*', (req, res) => {
-			log('Not found');
+			log('Not found ' + req.url + ' ' + req.method);
 				res.status(404)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
 				.send('<h1><i>Not found</i></h1>\n'); 
-		})
+		});
 	return app;
 }
 
