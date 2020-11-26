@@ -18,10 +18,10 @@ export default function initApp(ex) {
 				.send(myID);
 		})
 		.all('/code', (req, res) => {
-			log('/code ' + req.method);
+			log('/code ' + import.meta.url);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
-				.send(); 
+				.send(import.meta); 
 		})
 		.all('/sha1', (req, res) => {
 			log('/sha1 ' + req.method);
