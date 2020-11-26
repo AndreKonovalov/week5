@@ -1,6 +1,12 @@
 import x from 'express';
 const { log } = console;
 
+let crypto
+try {
+  crypto = require('crypto')
+} catch (err) {
+  console.log('Crypto module is unavailable')
+}
 const port = 80;
 
 import initApp from './app.js';
