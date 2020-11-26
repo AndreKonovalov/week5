@@ -15,23 +15,23 @@ export default function initApp(ex) {
 		.all('/login', (req, res) => {
 			log('/login ' + req.method);
 			res.status(200)
-				.set({ htxt, ...CORS })
+				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
 				.send(myID);
 		})
 		.all('/code', (req, res) => {
-			log('/code ' + import.meta.url);
+			log('/code ' + req.method + ' ' + req.url);
 				res.status(200)
-				.set({ htxt, ...CORS })
-				.send(import.meta); 
+				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
+				.send(import.meta.url); 
 		})
 		.all('/sha1', (req, res) => {
-			log('/sha1 ' + req.method);
+			log('/sha1 ' + req.method + ' ' + req.url);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
 				.send(); 
 		})
 		.all('/req', (req, res) => {
-			log('/req ' + req.method);
+			log('/req ' + req.method + ' ' + req.url);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
 				.send(); 
