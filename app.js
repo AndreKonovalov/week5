@@ -15,13 +15,13 @@ export default function initApp(ex) {
 		.all('/login', (req, res) => {
 			log('/login ' + req.method);
 			res.status(200)
-				.set({ hhtml, ...CORS })
+				.set({ htxt, ...CORS })
 				.send(myID);
 		})
 		.all('/code', (req, res) => {
 			log('/code ' + import.meta.url);
 				res.status(200)
-				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
+				.set({ htxt, ...CORS })
 				.send(import.meta); 
 		})
 		.all('/sha1', (req, res) => {
