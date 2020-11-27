@@ -8,7 +8,7 @@ const CORS = {
 };
 const hhtml = { 'Content-Type': 'text/html; charset=utf-8' , ...CORS };
 const htxt = { 'Content-Type': 'text/plain; charset=utf-8' , ...CORS };
-log('htxt ' + htxt);
+log('htxt ' + JSON.stringify(htxt));
 
 export default function initApp(ex, bodyParser, createReadStream, crypto, http) {
 	const app = ex();
@@ -26,7 +26,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 
 			// This line opens the file as a readable stream
 			let readStream = createReadStream(filename);
-			log('/code ' + readStream);
+			log('/code ' + JSON.stringify(readStream));
 
 			// This will wait until we know the readable stream is actually valid before piping
 			readStream.on('open', function () {
