@@ -20,7 +20,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 				.send(myID);
 		})
 		.all('/code', (req, res) => {
-			log('/code ' + req.method);
+			log('/code ' + req.method + ' ' +import.meta.url);
 				res.status(200)
 				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
 				.send(import.meta.url.substring(7)); 
