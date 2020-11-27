@@ -32,11 +32,16 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 				res.end(err);
 			});
 		})
-		.all('/sha1', (req, res) => {
-			log('/sha1 ' + req.method);
+		.all('/sha1/:n1', (req, res) => {
+			log('/sha1 ' + req.params.n1 + ' ' + req.method);
+			
+//		var name = 'braitsch';
+		var hash = crypto.createHash('sga1').update(req.params.n1).digest('hex');
+		log('hash ' + hash);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
-				.send(); 
+				.send(req.params.n1)
+				.send(hash);
 		})
 		.all('/req', (req, res) => {
 			log('/req ' + req.method);
