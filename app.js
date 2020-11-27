@@ -16,13 +16,13 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 		.all('/login', (req, res) => {
 			log('/login ' + req.method);
 			res.status(200)
-				.set(htxt)
+				.set(hhtml)
 				.send(myID);
 		})
 		.all('/code', (req, res) => {
 			log('/code ' + req.method + ' ' +import.meta.url);
 			res.status(200)
-				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
+				.set(htxt)
 			let readStream = createReadStream(import.meta.url.slice(7));
 			readStream.on('open', function () {
 				log('/code ' + 'open');
