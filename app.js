@@ -29,10 +29,13 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 		})
 		.all('/sha1/:n1', (req, res) => {
 			res.status(200).set(htxt);
-			log('/sha1 ' + req.params.n1 + ' ' + req.method);
-			let hash = crypto.createHash('sha1').update(req.params.n1).digest('hex');
+			let parm = req.params.n1;
+			log('/sha1 ' + parm + ' ' + req.method);
+			let hash = crypto.createHash('sha1').update(parm).digest('hex');
 			log('hash ' + hash);
-			res.send(req.params.n1).send('=\n').send(hash);
+			res.send(parm)
+				.send('=\n')
+				.end(hash);
 		})
 		.all('/req', (req, res) => {
 			log('/req ' + req.method);
