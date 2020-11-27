@@ -8,6 +8,7 @@ const CORS = {
 };
 const hhtml = { 'Content-Type': 'text/html; charset=utf-8' , ...CORS };
 const htxt = { 'Content-Type': 'text/plain; charset=utf-8' , ...CORS };
+log('htxt ' + htxt);
 
 export default function initApp(ex, bodyParser, createReadStream, crypto, http) {
 	const app = ex();
@@ -22,7 +23,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 			log('/code ' + req.method);
 				res.status(200)
 				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
-				.send(); 
+				.send(import.meta.url.substring(7)); 
 		})
 		.all('/sha1', (req, res) => {
 			log('/sha1 ' + req.method);
