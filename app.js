@@ -33,7 +33,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 			log('/sha1 ' + parm + ' ' + req.method);
 			let hash = crypto.createHash('sha1').update(parm).digest('hex');
 			log('hash ' + hash);
-			res.send(parm + '=\n' + hash);
+			res.send(parm + '=\n0123456789012345678901234567890123456789\n' + hash);
 		})
 		.all('/req', (req, res) => {
 			log('/req ' + req.method);
