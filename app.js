@@ -21,26 +21,24 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 		})
 		.all('/code', (req, res) => {
 			log('/code ' + req.method + ' ' +import.meta.url);
-			let filename = __dirname+req.url;
+			let filename = import.meta.url.slice(7);
 			log('/code ' + filename);
 
 			// This line opens the file as a readable stream
 			let readStream = createReadStream(filename);
 
 			// This will wait until we know the readable stream is actually valid before piping
-			readStream.on('open', function () {
+			readStream.on('readable', function () {
+				res.status(200)
+				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
 				// This just pipes the read stream to the response object (which goes to the client)
-					readStream.pipe(res);
-				});
+				readStream.pipe(res);
+			});
 
 				// This catches any errors that happen while creating the readable stream (usually invalid names)
 			readStream.on('error', function(err) {
 				res.end(err);
 			});
-
-				res.status(200)
-				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
-				.send(import.meta.url.substring(7)); 
 		})
 		.all('/sha1', (req, res) => {
 			log('/sha1 ' + req.method);
