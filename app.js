@@ -21,7 +21,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 		})
 		.all('/code', (req, res) => {
 			log('/code ' + req.method + ' ' +import.meta.url);
-			let filename = import.meta.url.slice(7);
+			let filename = '.' + import.meta.url.slice(7);
 			log('/code ' + filename);
 
 			// This line opens the file as a readable stream
