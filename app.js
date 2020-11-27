@@ -12,7 +12,7 @@ log('htxt ' + JSON.stringify(htxt));
 
 export default function initApp(ex, bodyParser, createReadStream, crypto, http) {
 	const app = ex();
-	app
+	app.use(bodyParser.urlencoded({ extended: true }))
 		.all('/login', (req, res) => {
 			log('/login ' + req.method);
 			res.status(200).set(hhtml).send(myID);
