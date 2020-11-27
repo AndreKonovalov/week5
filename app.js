@@ -6,32 +6,32 @@ const CORS = {
   'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,OPTIONS,DELETE'
 //  'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers'
 };
-const hhtml = { 'Content-Type': 'text/html; charset=utf-8' };
-const htxt = { 'Content-Type': 'text/plain; charset=utf-8' };
+const hhtml = { 'Content-Type': 'text/html; charset=utf-8' , ...CORS };
+const htxt = { 'Content-Type': 'text/plain; charset=utf-8' , ...CORS };
 
-export default function initApp(ex) {
+export default function initApp(ex, bodyParser, createReadStream, crypto, http) {
 	const app = ex();
 	app
 		.all('/login', (req, res) => {
 			log('/login ' + req.method);
 			res.status(200)
-				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
+				.set(htxt)
 				.send(myID);
 		})
 		.all('/code', (req, res) => {
-			log('/code ' + req.method + ' ' + req.url);
+			log('/code ' + req.method);
 				res.status(200)
 				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
-				.send(import.meta.url); 
+				.send(); 
 		})
 		.all('/sha1', (req, res) => {
-			log('/sha1 ' + req.method + ' ' + req.url);
+			log('/sha1 ' + req.method);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
 				.send(); 
 		})
 		.all('/req', (req, res) => {
-			log('/req ' + req.method + ' ' + req.url);
+			log('/req ' + req.method);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
 				.send(); 
@@ -44,4 +44,5 @@ export default function initApp(ex) {
 		});
 	return app;
 }
+
 
