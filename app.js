@@ -36,7 +36,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 			log('/sha1 ' + req.params.n1 + ' ' + req.method);
 			
 //		var name = 'braitsch';
-		var hash = crypto.createHash('sga1').update(req.params.n1).digest('hex');
+		var hash = crypto.createHash('sha1').update(req.params.n1).digest('hex');
 		log('hash ' + hash);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
