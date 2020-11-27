@@ -21,14 +21,16 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 		})
 		.all('/code', (req, res) => {
 			log('/code ' + req.method + ' ' +import.meta.url);
-			let filename = '.' + import.meta.url.slice(7);
+			let filename = import.meta.url.slice(7);
 			log('/code ' + filename);
 
 			// This line opens the file as a readable stream
 			let readStream = createReadStream(filename);
+			log('/code ' + readStream);
 
 			// This will wait until we know the readable stream is actually valid before piping
-			readStream.on('readable', function () {
+			readStream.on('open', function () {
+				log('/code ' + 'open');
 				res.status(200)
 				.set({ 'Content-Type': 'text/plain; charset=utf-8', ...CORS })
 				// This just pipes the read stream to the response object (which goes to the client)
