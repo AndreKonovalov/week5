@@ -15,33 +15,24 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 	app
 		.all('/login', (req, res) => {
 			log('/login ' + req.method);
-			res.status(200)
-				.set(hhtml)
-				.send(myID);
+			res.status(200).set(hhtml).send(myID);
 		})
 		.all('/code', (req, res) => {
 			log('/code ' + req.method + ' ' +import.meta.url);
-			res.status(200)
-				.set(htxt)
+			res.status(200).set(htxt);
 			let readStream = createReadStream(import.meta.url.slice(7));
 			readStream.on('open', function () {
 				log('/code ' + 'open');
 				readStream.pipe(res);
 			});
-			readStream.on('error', function(err) {
-				res.end(err);
-			});
+			readStream.on('error', function(err) { res.end(err); });
 		})
 		.all('/sha1/:n1', (req, res) => {
+			res.status(200).set(htxt);
 			log('/sha1 ' + req.params.n1 + ' ' + req.method);
-			
-//		var name = 'braitsch';
-		var hash = crypto.createHash('sha1').update(req.params.n1).digest('hex');
-		log('hash ' + hash);
-				res.status(200)
-				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
-				.send(req.params.n1)
-				.send(hash);
+			let hash = crypto.createHash('sha1').update(req.params.n1).digest('hex');
+			log('hash ' + hash);
+			res.send(req.params.n1).send('=\n').send(hash);
 		})
 		.all('/req', (req, res) => {
 			log('/req ' + req.method);
