@@ -3,7 +3,6 @@ import crypto from 'crypto';
 import http from 'http';
 import bodyParser from 'body-parser';
 import { createReadStream } from 'fs';
-const { log } = console;
 
 const port = 80;
 
