@@ -35,8 +35,13 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 			res.send(hash);
 		})
 		.all('/req', (req, res) => {
-			log('/req ' + req.url);
-			let addr = req.url.slice(req.url.indexOf('?') + 6);
+			log('/req ' + req.url + ' ' + req.method);
+			let addr;
+			if(req.method === 'GET')
+				addr = req.url.slice(req.url.indexOf('?') + 6);
+			else if(req.method === 'POST')
+				addr = req.body.slice(5);
+			else { res.end('Unknown method'); return; }
 			log('addr ' + addr);
 			res.status(200).set(hhtml);
 http.get(addr, (rs) => {
@@ -49,22 +54,15 @@ http.get(addr, (rs) => {
   // Any 2xx status code signals a successful response but
   // here we're only checking for 200.
   if (statusCode !== 200) {
-    error = new Error('Request Failed.\n' + `Status Code: ${statusCode}`);
-  }
-  if (error) {
-    console.error(error.message);
-    // Consume response data to free up memory
     rs.resume();
+    res.end('Request Failed.\n' + `Status Code: ${statusCode}`);
     return;
   }
 
   rs.setEncoding('utf8');
   rs.pipe(res);
-//  let rawData = '';
-//  rs.on('data', (chunk) => { rawData += chunk; });
-//  rs.on('end', () => res.end(rawData));
 }).on('error', (e) => {
-  console.error(`Got error: ${e.message}`);
+  res.end(`Got error: ${e.message}`);
 });
 		})
 		.all('*', (req, res) => {
