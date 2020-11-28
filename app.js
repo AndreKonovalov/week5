@@ -35,7 +35,9 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 			res.send(hash);
 		})
 		.all('/req', (req, res) => {
-			log('/req ' + req.method);
+			log('/req ' + req.url);
+			addr = req.url.slice(req.url.indexOf('?') + 1);
+			log('addr ' + addr);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
 				.send(); 
