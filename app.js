@@ -40,7 +40,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 			if(req.method === 'GET')
 				addr = req.url.slice(req.url.indexOf('?') + 6);
 			else if(req.method === 'POST')
-				addr = req.body.addr.slice(5);
+				addr = req.body.addr;
 			else { res.end('Unknown method'); return; }
 			log('addr ' + addr);
 			res.status(200).set(hhtml);
