@@ -38,9 +38,15 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 			log('/req ' + req.url);
 			let addr = req.url.slice(req.url.indexOf('?') + 6);
 			log('addr ' + addr);
-				res.status(200)
-				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
-				.send(); 
+			res.status(200)
+			.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
+			fetch(addr)
+				.then(x => x.text())
+				.then(x => {
+					res.end(x); })
+				.catch(x => {
+					log('Error ' + x);
+					res.end('Error ' + x); })
 		})
 		.all('*', (req, res) => {
 			log('Not found ' + req.url + ' ' + req.method);
