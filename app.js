@@ -39,13 +39,33 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 			let addr = req.url.slice(req.url.indexOf('?') + 6);
 			log('addr ' + addr);
 			res.status(200).set(hhtml);
-			fetch(addr)
-				.then(x => x.text())
-				.then(x => {
-					res.end(x); })
-				.catch(x => {
-					log('Error ' + x);
-					res.end('Error ' + x); });
+http.get(addr, (rs) => {
+  const { statusCode } = rs;
+  const contentType = rs.headers['content-type'];
+	log('statusCode ' + statusCode);
+	log('contentType ' + JSON.stringify(contentType));
+
+  let error;
+  // Any 2xx status code signals a successful response but
+  // here we're only checking for 200.
+  if (statusCode !== 200) {
+    error = new Error('Request Failed.\n' + `Status Code: ${statusCode}`);
+  }
+  if (error) {
+    console.error(error.message);
+    // Consume response data to free up memory
+    rs.resume();
+    return;
+  }
+
+  rs.setEncoding('utf8');
+  rs.pipe(res);
+//  let rawData = '';
+//  rs.on('data', (chunk) => { rawData += chunk; });
+//  rs.on('end', () => res.end(rawData));
+}).on('error', (e) => {
+  console.error(`Got error: ${e.message}`);
+});
 		})
 		.all('*', (req, res) => {
 			log('Not found ' + req.url + ' ' + req.method);
