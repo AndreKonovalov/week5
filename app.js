@@ -36,7 +36,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 		})
 		.all('/req', (req, res) => {
 			log('/req ' + req.url);
-			addr = req.url.slice(req.url.indexOf('?') + 1);
+			let addr = req.url.slice(req.url.indexOf('?') + 6);
 			log('addr ' + addr);
 				res.status(200)
 				.set({ 'Content-Type': 'text/html; charset=utf-8', ...CORS })
