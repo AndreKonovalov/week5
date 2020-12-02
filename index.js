@@ -7,5 +7,6 @@ import mongoose from 'mongoose';
 import UserModel from './models/User.js';
 import initApp from './app.js';
 
+const User = UserModel(mongoose);
 const app = initApp(express, bodyParser, createReadStream, crypto, http, mongoose, User);
 app.listen(process.env.PORT || 2345);
