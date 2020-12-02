@@ -1,7 +1,7 @@
 const myID = 'id319887435';
 const CORS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, OPTIONS, DELETE'
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, OPTIONS, DELETE',
   'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers'
 // 'Access-Control-Allow-Headers': 'x-test, Content-Type, Accept, Access-Control-Allow-Headers'
 };
