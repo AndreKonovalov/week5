@@ -11,8 +11,8 @@ const htxt = { 'Content-Type': 'text/plain; charset=utf-8' , ...CORS };
 export default function initApp(ex, bodyParser, createReadStream, crypto, http, mongoose, User) {
 	const app = ex();
 	app.use(bodyParser.urlencoded({ extended: true })).use(bodyParser.json())
-		.all('/login', (req, res) => res.status(200).set(hhtml).send(myID))
-		.all('/code', (req, res) => {
+		.all('/login/', (req, res) => res.status(200).set(hhtml).send(myID))
+		.all('/code/', (req, res) => {
 			res.status(200).set(htxt);
 			let readStream = createReadStream(import.meta.url.slice(7));
 			readStream.on('open', () => readStream.pipe(res));
@@ -22,7 +22,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http, 
 			res.status(200).set(htxt)
 			   .send(crypto.createHash('sha1').update(req.params.n1).digest('hex'));
 		})
-		.all('/req', (req, res) => {
+		.all('/req/', (req, res) => {
 			let addr;
 			if(req.method === 'GET')
 				addr = req.query.addr;
@@ -36,7 +36,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http, 
   				else rs.pipe(res);
 			}).on('error', (e) => res.end(`Got error: ${e.message}\n`));
 		})
-		app.post('/insert/', async (req, res) => {
+		.post('/insert/', async (req, res) => {
     		    const { URL, login, password } = req.body;
     		    try {
       			await mongoose.connect(URL, {useNewUrlParser: true, useUnifiedTopology: true });
@@ -46,7 +46,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http, 
     		    } catch (e) {
       			res.send(e.codeName);
     		    }
-  		});
+  		})
 		.all('*', (req, res) => res.status(200).set(hhtml).send(myID));
 	return app;
 }
