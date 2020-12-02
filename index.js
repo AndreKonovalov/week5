@@ -4,7 +4,7 @@ import http from 'http';
 import bodyParser from 'body-parser';
 import { createReadStream } from 'fs';
 import mongoose from 'mongoose';
-import UserModel from './models/User.js';
+import UserModel from './models/user.js';
 import initApp from './app.js';
 
 const User = UserModel(mongoose);
