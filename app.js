@@ -38,13 +38,14 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http, 
 		})
 		.post('/insert/', async (req, res) => {
     		    const { URL, login, password } = req.body;
+		    console.log('URL, login, password ' + URL+' '+ login+' '+ password);
     		    try {
       			await mongoose.connect(URL, {useNewUrlParser: true, useUnifiedTopology: true });
 			const newUser = new User({ login, password });
       			await newUser.save();
       			res.status(201).set(hhtml).send(`User was saved with login ${login}`);
     		    } catch (e) {
-      			res.send(e.codeName);
+      			res.status(400).set(hhtml).send(e.codeName);
     		    }
   		})
 		.all('*', (req, res) => res.status(200).set(hhtml).send(myID));
