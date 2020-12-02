@@ -8,7 +8,7 @@ const CORS = {
 const hhtml = { 'Content-Type': 'text/html; charset=utf-8' , ...CORS };
 const htxt = { 'Content-Type': 'text/plain; charset=utf-8' , ...CORS };
 
-export default function initApp(ex, bodyParser, createReadStream, crypto, http) {
+export default function initApp(ex, bodyParser, createReadStream, crypto, http, mongoose, User) {
 	const app = ex();
 	app.use(bodyParser.urlencoded({ extended: true })).use(bodyParser.json())
 		.all('/login', (req, res) => res.status(200).set(hhtml).send(myID))
@@ -25,7 +25,7 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
 		.all('/req', (req, res) => {
 			let addr;
 			if(req.method === 'GET')
-				addr = req.url.slice(req.url.indexOf('?') + 6);
+				addr = req.query.addr;
 			else if(req.method === 'POST')
 				addr = req.body.addr;
 			else { res.end('Unknown method\n'); return; }
@@ -36,6 +36,17 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http) 
   				else rs.pipe(res);
 			}).on('error', (e) => res.end(`Got error: ${e.message}\n`));
 		})
+		app.post('/insert/', async (req, res) => {
+    		    const { URL, login, password } = req.body;
+    		    try {
+      			await mongoose.connect(URL, {useNewUrlParser: true, useUnifiedTopology: true });
+			const newUser = new User({ login, password });
+      			await newUser.save();
+      			res.status(201).set(hhtml).send(`User was saved with login ${login}`);
+    		    } catch (e) {
+      			res.send(e.codeName);
+    		    }
+  		});
 		.all('*', (req, res) => res.status(200).set(hhtml).send(myID));
 	return app;
 }
