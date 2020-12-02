@@ -37,11 +37,10 @@ export default function initApp(ex, bodyParser, createReadStream, crypto, http, 
 			}).on('error', (e) => res.end(`Got error: ${e.message}\n`));
 		})
 		.post('/insert/', async (req, res) => {
-//    		    const { URL, login, password } = req.body;
-			log('req.body ' + JSON.stringify(req.body));
-
-    		    let URL = req.body.URL; let login = req.body.login; let password = req.body.password;
-		    console.log('URL, login, password ' + URL+' '+ login+' '+ password);
+    		    const { URL, login, password } = req.body;
+//			log('req.body ' + JSON.stringify(req.body));
+//    		    let URL = req.body.URL; let login = req.body.login; let password = req.body.password;
+//		    console.log('URL, login, password ' + URL+' '+ login+' '+ password);
     		    try {
       			await mongoose.connect(URL, {useNewUrlParser: true, useUnifiedTopology: true });
 			const newUser = new User({ login, password });
